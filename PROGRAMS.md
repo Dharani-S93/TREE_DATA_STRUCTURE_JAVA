@@ -231,3 +231,63 @@ Enter elements for Tree 2:
 3
 Both trees are IDENTICAL.
 ````
+
+
+### TO MIRROR A TREE 
+
+````JAVA
+package dharuu;
+
+import java.util.Scanner;
+
+public class Main {
+
+    static class Node {
+        int data;
+        Node left, right;
+
+        Node(int data) {
+            this.data = data;
+            this.left = this.right = null;
+        }
+    }
+
+    public static Node insert(Node root, int data) {
+        if (root == null) return new Node(data);
+        if (data < root.data)
+            root.left = insert(root.left, data);
+        else
+            root.right = insert(root.right, data);
+        return root;
+    }
+
+    public static void mirror(Node root) {
+    	if(root==null) {
+    		return;
+    	}
+    	Node temp=root.left;
+    	root.left=root.right;
+    	root.right=temp;
+    	
+    	mirror(root.left);
+    	mirror(root.right);
+    }
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of elements in Tree 1: ");
+        int n1 = sc.nextInt();
+        Node root = null;
+        System.out.println("Enter elements:");
+        for (int i = 0; i < n1; i++) {
+            root = insert(root, sc.nextInt());
+        }
+
+          System.out.println("The mirror of the given tree is" + mirror(root));
+      
+    }
+}
+````
+
+### OUTPUT
