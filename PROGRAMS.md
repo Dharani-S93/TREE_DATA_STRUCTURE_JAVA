@@ -313,3 +313,81 @@ In-order traversal of the mirrored tree:
 ````
 
 
+### TO FIND THE DIAMETER OF THE TREE
+
+````JAVA
+package dharuu;
+
+import java.util.Scanner;
+
+public class Main {
+
+    static class Node {
+        int data;
+        Node left, right;
+
+        Node(int data) {
+            this.data = data;
+            this.left = this.right = null;
+        }
+    }
+
+    static class Diameter {
+        int value = 0;
+    }
+
+    public static Node insert(Node root, int data) {
+        if (root == null) return new Node(data);
+        if (data < root.data)
+            root.left = insert(root.left, data);
+        else
+            root.right = insert(root.right, data);
+        return root;
+    }
+
+    public static int height(Node root, Diameter d) {
+        if (root == null) {
+            return 0;
+        }
+        int lh = height(root.left, d);
+        int rh = height(root.right, d);
+
+        int path = lh + rh;
+        d.value = Math.max(d.value, path); 
+        return 1 + Math.max(lh, rh);
+    }
+
+    public static int findDiameter(Node root) {
+        Diameter d = new Diameter();
+        height(root, d);
+        return d.value;
+    }
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of elements in Tree: ");
+        int n1 = sc.nextInt();
+        Node root = null;
+        System.out.println("Enter elements:");
+        for (int i = 0; i < n1; i++) {
+            root = insert(root, sc.nextInt());
+        }
+
+        int diameter = findDiameter(root);
+        System.out.println("Diameter of the tree: " + diameter);
+
+    }
+}
+````
+
+### OUTPUT
+
+````JAVA
+Enter number of elements in Tree: 3
+Enter elements:
+1
+2
+3
+Diameter of the tree: 2
+````
