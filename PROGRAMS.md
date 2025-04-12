@@ -392,6 +392,90 @@ Enter elements:
 Diameter of the tree: 2
 ````
 
-### TO FIND THE DISTANCE BETWEEN TWO NODES IN A TREE
+### TO FIND THE LCM AND GCD OF THE TREE
 
+````JAVA
+package dharuu;
+
+import java.util.Scanner;
+
+public class Main {
+
+    static class Node {
+        int data;
+        Node left, right;
+
+        Node(int data) {
+            this.data = data;
+            this.left = this.right = null;
+        }
+    }
+
+    public static Node insert(Node root, int data) {
+        if (root == null) return new Node(data);
+        if (data < root.data)
+            root.left = insert(root.left, data);
+        else
+            root.right = insert(root.right, data);
+        return root;
+    }
+
+    public static int gcd(int a, int b) {
+        if (b == 0) return a;
+        return gcd(b, a % b);
+    }
+
+    public static int lcm(int a, int b) {
+        return (a * b) / gcd(a, b);
+    }
+
+    public static void lg(Node root) {
+        if (root == null) return;
+
+        if (root.left != null && root.right != null) {
+            int a = root.left.data;
+            int b = root.right.data;
+
+            System.out.println("Siblings: " + a + " & " + b);
+            System.out.println("  GCD of siblings: " + gcd(a, b));
+            System.out.println("  LCM of siblings: " + lcm(a, b));
+        }
+
+        lg(root.left);
+        lg(root.right);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of elements in Tree: ");
+        int n1 = sc.nextInt();
+        Node root = null;
+        System.out.println("Enter elements:");
+        for (int i = 0; i < n1; i++) {
+            root = insert(root, sc.nextInt());
+        }
+
+        System.out.println("\nGCD and LCM of all sibling nodes:");
+        lg(root);
+    }
+}
+````
+
+### OUTPUT
+
+````JAVA
+
+Enter number of elements in Tree: 5
+Enter elements:
+1
+6
+3
+7
+3
+
+GCD and LCM of all sibling nodes:
+Siblings: 3 & 7
+  GCD of siblings: 1
+  LCM of siblings: 21
+````
 
