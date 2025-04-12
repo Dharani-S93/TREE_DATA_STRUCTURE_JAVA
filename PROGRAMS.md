@@ -391,3 +391,7 @@ Enter elements:
 3
 Diameter of the tree: 2
 ````
+
+### TO FIND THE DISTANCE BETWEEN TWO NODES IN A TREE
+
+
