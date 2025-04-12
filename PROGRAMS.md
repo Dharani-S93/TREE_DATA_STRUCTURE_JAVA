@@ -59,7 +59,7 @@ public class Main {
 
 ### OUTPUT
 
-````
+````java
 Enter number of elements: 5
 Enter elements:
 2
