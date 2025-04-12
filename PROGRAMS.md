@@ -262,21 +262,27 @@ public class Main {
     }
 
     public static void mirror(Node root) {
-    	if(root==null) {
-    		return;
-    	}
-    	Node temp=root.left;
-    	root.left=root.right;
-    	root.right=temp;
-    	
-    	mirror(root.left);
-    	mirror(root.right);
+        if (root == null) {
+            return;
+        }
+        Node temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+
+        mirror(root.left);
+        mirror(root.right);
     }
 
+    public static void inorder(Node root) {
+        if (root == null) return;
+        inorder(root.left);
+        System.out.print(root.data + " ");
+        inorder(root.right);
+    }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Enter number of elements in Tree 1: ");
+        System.out.print("Enter number of elements in Tree: ");
         int n1 = sc.nextInt();
         Node root = null;
         System.out.println("Enter elements:");
@@ -284,10 +290,26 @@ public class Main {
             root = insert(root, sc.nextInt());
         }
 
-          System.out.println("The mirror of the given tree is" + mirror(root));
-      
+        mirror(root);
+
+        System.out.println("In-order traversal of the mirrored tree:");
+        inorder(root);
     }
 }
+
 ````
 
+
 ### OUTPUT
+
+````java
+Enter number of elements in Tree: 3
+Enter elements:
+1
+2
+3
+In-order traversal of the mirrored tree:
+3 2 1
+````
+
+
