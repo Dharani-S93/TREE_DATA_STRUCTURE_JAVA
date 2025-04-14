@@ -575,3 +575,252 @@ Enter first node: 2
 Enter second node: 8
 Distance between 2 and 8 is: 3
 ````
+
+### ZIGZAG TREE TRAVERSAL
+
+````JAVA
+
+package dharuu;
+
+import java.util.Scanner;
+
+public class Main {
+
+    static class Node {
+        int data;
+        Node left, right;
+
+        Node(int data) {
+            this.data = data;
+            this.left = this.right = null;
+        }
+    }
+
+    public static Node insert(Node root, int data) {
+        if (root == null) return new Node(data);
+        if (data < root.data)
+            root.left = insert(root.left, data);
+        else
+            root.right = insert(root.right, data);
+        return root;
+    }
+
+    public static int height(Node root) {
+        if (root == null) return 0;
+        int lh = height(root.left);
+        int rh = height(root.right);
+        return 1 + Math.max(lh, rh);
+    }
+
+    public static void printlevel(Node root, int level, boolean leftToRight) {
+        if (root == null) return;
+
+        if (level == 1) {
+            System.out.print(root.data + " ");
+        } else if (level > 1) {
+            if (leftToRight) {
+                printlevel(root.left, level - 1, leftToRight);
+                printlevel(root.right, level - 1, leftToRight);
+            } else {
+                printlevel(root.right, level - 1, leftToRight);
+                printlevel(root.left, level - 1, leftToRight);
+            }
+        }
+    }
+
+    public static void zigzag(Node root) {
+        int h = height(root);
+        boolean leftToRight = true;
+
+        for (int i = 1; i <= h; i++) {
+            printlevel(root, i, leftToRight);
+            leftToRight = !leftToRight; 
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Node root = null;
+
+        System.out.print("Enter number of nodes: ");
+        int n = sc.nextInt();
+
+        System.out.println("Enter node values:");
+        for (int i = 0; i < n; i++) {
+            int val = sc.nextInt();
+            root = insert(root, val);
+        }
+
+        System.out.println("Zigzag Traversal:");
+        zigzag(root);
+    }
+}
+````
+
+
+### OUTPUT
+````
+Enter number of nodes: 7
+Enter node values:
+50
+30
+70
+20
+40
+80
+60
+Zigzag Traversal:
+50 70 30 20 40 60 80
+````
+
+###  TO FIND THE MAXIMUM ELEMENT IN A PATH TO TARGET
+
+````JAVA
+
+package dharuu;
+
+import java.util.Scanner;
+
+public class Main {
+
+    static class Node {
+        int data;
+        Node left, right;
+
+        Node(int data) {
+            this.data = data;
+            this.left = this.right = null;
+        }
+    }
+
+    public static Node insert(Node root, int data) {
+        if (root == null) return new Node(data);
+        if (data < root.data)
+            root.left = insert(root.left, data);
+        else
+            root.right = insert(root.right, data);
+        return root;
+    }
+
+    public static int maxEle(Node root, int target, int max) {
+        if (root == null) return -1;
+
+        if (root.data == target)
+            return Math.max(max, root.data);
+
+        max = Math.max(max, root.data);
+
+        if (target < root.data)
+            return maxEle(root.left, target, max);
+        else
+            return maxEle(root.right, target, max);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        Node root = null;
+        System.out.print("Enter number of elements: ");
+        int n = sc.nextInt();
+        System.out.println("Enter elements:");
+        for (int i = 0; i < n; i++) {
+            root = insert(root, sc.nextInt());
+        }
+
+        System.out.print("Enter target node: ");
+        int target = sc.nextInt();
+
+        int res = maxEle(root, target, Integer.MIN_VALUE);
+
+        if (res == -1)
+            System.out.println("Target not found in tree.");
+        else
+            System.out.println("Maximum element in path to " + target + " is: " + res);
+    }
+}
+````
+
+### OUTPUT
+
+````JAVA
+Enter number of elements: 5
+Enter elements:
+1
+3
+7
+4
+9
+Enter target node: 4
+Maximum element in path to 4 is: 7
+````
+
+### TO CONVERT ARRAY TO TREE
+
+````JAVA
+package dharuu;
+
+import java.util.Scanner;
+
+public class Main {
+
+    static class Node {
+        int data;
+        Node left, right;
+
+        Node(int data) {
+            this.data = data;
+            left = right = null;
+        }
+    }
+    public static Node arraytotree(int[] arr, int start, int end) {
+        if (start > end) return null;
+
+        int mid = (start + end) / 2;
+        Node root = new Node(arr[mid]);
+
+        root.left = arraytotree(arr, start, mid - 1);
+        root.right = arraytotree(arr, mid + 1, end);
+
+        return root;
+    }
+
+    public static void inorder(Node root) {
+        if (root == null) return;
+        inorder(root.left);
+        System.out.print(root.data + " ");
+        inorder(root.right);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter size of array: ");
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+
+        System.out.println("Enter array elements:");
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        Node root = arraytotree(arr, 0, n - 1);
+
+        System.out.println("Inorder traversal:");
+        inorder(root);
+    }
+}
+````
+
+### OUTPUT
+
+````JAVA
+Enter size of array: 5
+Enter array elements:
+1
+3
+6
+7
+8
+Inorder traversal:
+1 3 6 7 8
+
+````
