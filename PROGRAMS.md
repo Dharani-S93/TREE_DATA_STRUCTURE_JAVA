@@ -479,3 +479,99 @@ Siblings: 3 & 7
   LCM of siblings: 21
 ````
 
+###  TO FIND THE DISTANCE OF TWO NODES OF THE TREE
+````JAVA
+
+package dharuu;
+
+import java.util.Scanner;
+
+public class Main {
+
+    static class Node {
+        int data;
+        Node left, right;
+
+        Node(int data) {
+            this.data = data;
+            this.left = this.right = null;
+        }
+    }
+
+    public static Node insert(Node root, int data) {
+        if (root == null) return new Node(data);
+        if (data < root.data)
+            root.left = insert(root.left, data);
+        else
+            root.right = insert(root.right, data);
+        return root;
+    }
+
+    public static Node findLCA(Node root, int n1, int n2) {
+        if (root == null) return null;
+
+        if (root.data > n1 && root.data > n2)
+            return findLCA(root.left, n1, n2);
+        else if (root.data < n1 && root.data < n2)
+            return findLCA(root.right, n1, n2);
+        else
+            return root;
+    }
+
+    public static int findDistance(Node root, int target) {
+        if (root == null) return -1;
+
+        if (root.data == target)
+            return 0;
+        else if (target < root.data)
+            return 1 + findDistance(root.left, target);
+        else
+            return 1 + findDistance(root.right, target);
+    }
+
+    public static int distanceBetweenNodes(Node root, int n1, int n2) {
+        Node lca = findLCA(root, n1, n2);
+
+        int d1 = findDistance(lca, n1);
+        int d2 = findDistance(lca, n2);
+
+        return d1 + d2;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number of elements in Tree: ");
+        int n = sc.nextInt();
+
+        Node root = null;
+        System.out.println("Enter elements:");
+        for (int i = 0; i < n; i++) {
+            root = insert(root, sc.nextInt());
+        }
+
+        System.out.print("Enter first node: ");
+        int node1 = sc.nextInt();
+
+        System.out.print("Enter second node: ");
+        int node2 = sc.nextInt();
+
+        int dist = distanceBetweenNodes(root, node1, node2);
+        System.out.println("Distance between " + node1 + " and " + node2 + " is: " + dist);
+    }
+}
+````
+
+### OUTPUT
+
+````JAVA
+Enter number of elements in Tree: 5
+Enter elements:
+2
+5
+7
+4
+8
+Enter first node: 2
+Enter second node: 8
+Distance between 2 and 8 is: 3
+````
