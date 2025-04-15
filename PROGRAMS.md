@@ -824,3 +824,95 @@ Inorder traversal:
 1 3 6 7 8
 
 ````
+
+
+### MEDIAN OF BST
+
+````JAVA
+
+package dharuuu;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+
+    static class Node {
+        int data;
+        Node left, right;
+
+        Node(int data) {
+        	
+            this.data = data;
+            left = right = null;
+        }
+    }
+
+    public static Node insert(Node root, int data) {
+        if (root == null) {
+            return new Node(data);
+        }
+        if (data < root.data) {
+            root.left = insert(root.left, data);
+        } else {
+            root.right = insert(root.right, data);
+        }
+        return root;
+    }
+
+    public static void inorder(Node root, ArrayList<Integer> l) {
+        if (root != null) {
+            inorder(root.left, l);
+            l.add(root.data);
+            inorder(root.right, l);
+        }
+    }
+
+    public static int median(Node root) {
+        ArrayList<Integer> res = new ArrayList<>();
+        inorder(root, res);
+        int n = res.size();
+
+        if (n % 2 != 0) {
+            return res.get(n / 2);
+        } else {
+            return (int) ((res.get(n / 2 - 1) + res.get(n / 2)) / 2.0);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+
+        Node root = null;
+
+        System.out.print("Enter number of elements: ");
+        int n = s.nextInt();
+        System.out.println("Enter elements: ");
+        for (int i = 0; i < n; i++) {
+            int val = s.nextInt();
+            root = insert(root, val);
+        }
+
+        int med = median(root);
+        System.out.println("Median of BST: " + med);
+    }
+}
+````
+
+## OUTPUT
+````JAVA
+Enter number of elements: 7
+Enter elements: 
+12
+4
+76
+5
+88
+45
+3
+Median of BST: 12
+````
+
+
+
+
