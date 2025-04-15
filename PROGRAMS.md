@@ -138,6 +138,7 @@ public class Main {
 ````
 
 ### OUTPUT
+
 ```JAVA
 Enter number of elements: 7
 Enter elements:
@@ -218,6 +219,7 @@ public class Main {
 ````
 
 ### OUTPUT
+
 ````JAVA
 Enter number of elements in Tree 1: 3
 Enter elements for Tree 1:
@@ -673,7 +675,7 @@ Zigzag Traversal:
 50 70 30 20 40 60 80
 ````
 
-###  TO FIND THE MAXIMUM ELEMENT IN A PATH TO TARGET
+###  TO FIND THE MAXIMUM ELEMENT IN A PATH TO TARGET 
 
 ````JAVA
 
@@ -754,7 +756,7 @@ Enter target node: 4
 Maximum element in path to 4 is: 7
 ````
 
-### TO CONVERT ARRAY TO TREE
+### TO CONVERT ARRAY TO TREE 
 
 ````JAVA
 package dharuu;
@@ -900,6 +902,7 @@ public class Main {
 ````
 
 ## OUTPUT
+
 ````JAVA
 Enter number of elements: 7
 Enter elements: 
