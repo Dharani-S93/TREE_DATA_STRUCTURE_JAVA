@@ -918,4 +918,227 @@ Median of BST: 12
 
 
 
+### ROOT CHILD SUM 
+
+````JAVA
+package d;
+
+import java.util.Scanner;
+
+public class root_children_sum {
+    static class Node {
+        int data;
+        Node left, right;
+
+        Node(int data) {
+            this.data = data;
+            left = right = null;
+        }
+    }
+
+    public static Node insert(Node root, int data) {
+        if (root == null) return new Node(data);
+        if (data < root.data) root.left = insert(root.left, data);
+        else if (data > root.data) root.right = insert(root.right, data);
+        return root;
+    }
+
+    public static int childRootSum(Node root) {
+        if (root == null) return 0;
+
+        int sum = root.data;
+        if (root.left != null) sum += root.left.data;
+        if (root.right != null) sum += root.right.data;
+
+        return sum;
+    }
+
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        Node root = null;
+
+        System.out.print("Enter number of elements: ");
+        int n = s.nextInt();
+        System.out.println("Enter elements: ");
+        for (int i = 0; i < n; i++) {
+            int val = s.nextInt();
+            root = insert(root, val);
+        }
+
+        int result = childRootSum(root);
+        System.out.println("Sum of root and its children: " + result);
+    }
+}
+````
+
+## OUTPUT
+````JAVA
+Enter number of elements: 5
+Enter elements: 
+2
+9
+5
+7
+3
+Sum of root and its children: 11
+````
+#### COMMON NODES IN A TREE
+
+````JAVA
+package dharuu;
+
+import java.util.*;
+
+public class Main {
+
+    static class Node {
+        int data;
+        Node left, right;
+
+        Node(int data) {
+            this.data = data;
+            left = right = null;
+        }
+    }
+
+    public static Node insert(Node root, int data) {
+        if (root == null) return new Node(data);
+        if (data < root.data) root.left = insert(root.left, data);
+        else if (data > root.data) root.right = insert(root.right, data);
+        return root;
+    }
+
+    public static void inorder(Node root, ArrayList<Integer> list) {
+        if (root == null) return;
+        inorder(root.left, list);
+        list.add(root.data);
+        inorder(root.right, list);
+    }
+
+    public static void printCommonNodes(Node root) {
+        if (root == null) return;
+
+        ArrayList<Integer> leftList = new ArrayList<>();
+        ArrayList<Integer> rightList = new ArrayList<>();
+
+        inorder(root.left, leftList);
+        inorder(root.right, rightList);
+
+        System.out.print("The Common Nodes are: ");
+        boolean found = false;
+
+        for (int val : leftList) {
+            if (rightList.contains(val)) {
+                System.out.print(val + " ");
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("None");
+        } else {
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+
+        Node root = null;
+
+        System.out.print("Enter number of elements: ");
+        int n = s.nextInt();
+        System.out.println("Enter elements: ");
+        for (int i = 0; i < n; i++) {
+            int val = s.nextInt();
+            root = insert(root, val);
+        }
+
+        printCommonNodes(root);
+    }
+}
+
+
+````
+#### HUFFMAN'S ENCODING DECODING ALGORITHM
+
+````JAVA
+import java.util.PriorityQueue;
+import java.util.Comparator;
+
+class HuffmanNode {
+    char ch;  
+    int freq;  
+    HuffmanNode left, right;
+
+    HuffmanNode(char ch, int freq) {
+        this.ch = ch;
+        this.freq = freq;
+    }
+
+    HuffmanNode(int freq, HuffmanNode left, HuffmanNode right) {
+        this.ch = '-';  
+        this.freq = freq;
+        this.left = left;
+        this.right = right;
+    }
+}
+
+class HuffmanComparator implements Comparator<HuffmanNode> {
+    public int compare(HuffmanNode a, HuffmanNode b) {
+        return a.freq - b.freq;
+    }
+}
+
+public class SimpleHuffmanCoding {
+
+    public static void printCodes(HuffmanNode root, String code) {
+        if (root.left == null && root.right == null) {
+            System.out.println(root.ch + " | " + code);
+            return;
+        }
+        printCodes(root.left, code + "0");
+        printCodes(root.right, code + "1");
+    }
+
+    public static HuffmanNode buildTree(char[] chars, int[] freqs) {
+        PriorityQueue<HuffmanNode> pq = new PriorityQueue<HuffmanNode>(new HuffmanComparator());
+
+        for (int i = 0; i < chars.length; i++) {
+            pq.add(new HuffmanNode(chars[i], freqs[i]));
+        }
+
+        while (pq.size() > 1) {
+            HuffmanNode left = pq.poll();
+            HuffmanNode right = pq.poll();
+            HuffmanNode parent = new HuffmanNode(left.freq + right.freq, left, right);
+            pq.add(parent);
+        }
+
+        return pq.poll(); 
+    }
+
+    public static void main(String[] args) {
+        char[] chars = { 'A', 'B', 'C', 'D' };
+        int[] freqs = { 5, 1, 6, 3 };
+
+        HuffmanNode root = buildTree(chars, freqs);
+
+        System.out.println("Char | Huffman Code");
+        System.out.println("------------------");
+        printCodes(root, "");
+    }
+}
+
+
+````
+
+
+### TO CONSTRUCT A TREE FROM PREORDER TRAVERSAL
+
+````JAVA
+
+
+
+
 
