@@ -1124,8 +1124,7 @@ public class SimpleHuffmanCoding {
 
         HuffmanNode root = buildTree(chars, freqs);
 
-        System.out.println("Char | Huffman Code");
-        System.out.println("------------------");
+        System.out.println(" Huffman Code");
         printCodes(root, "");
     }
 }
