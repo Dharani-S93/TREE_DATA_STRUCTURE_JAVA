@@ -55,3 +55,16 @@ public class Main
 }
 
 ````
+
+### OUTPUT
+````JAVA
+Enter number of elements: 5
+Enter elements: 
+1
+2
+3
+4
+5
+The sum tree is: 15
+
+````
