@@ -1133,10 +1133,6 @@ public class SimpleHuffmanCoding {
 ````
 
 
-### TO CONSTRUCT A TREE FROM PREORDER TRAVERSAL
-
-````JAVA
-
 
 
 
