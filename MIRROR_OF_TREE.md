@@ -58,3 +58,26 @@ public class Main
 ````JAVA
 The trees are mirrors of each other: true
 ````
+
+### Another Approach:
+
+````java
+
+    public static int mirrorTree(Node root){
+        if(root==null){
+            return 0;
+        }
+        else{
+            Node temp=root.left;
+            root.left=root.right;
+            root.right=temp;
+        }
+        return root.data;
+        
+        mirrorTree(root.left);
+        mirrorTree(root.right);
+        
+    }
+````
+
+
